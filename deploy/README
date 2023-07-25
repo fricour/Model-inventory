@@ -1,0 +1,4 @@
+docker build -f Dockerfile_base --progress=plain -t modelinventory_base .
+docker build -f Dockerfile --progress=plain -t modelinventory:latest .
+docker run -p 80:80 modelinventory:latest
+# then go to 127.0.0.1:80
