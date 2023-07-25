@@ -5,7 +5,7 @@
 #' @return a ggplot
 #'
 #' @noRd
-BarPlots <- function(df, v){
+BarPlots <- function(df, v, dfvartype){
   if (subset(dfvartype,var==v)$type=='cat.mult'){
     ul <- unlist(df[,v])
     cats<-unique(ul)
@@ -36,7 +36,7 @@ BarPlots <- function(df, v){
 #'
 #' @example
 #' Call as, e.g. " PiePlot(df_res,'VertCoord') "
-PiePlot <- function(df, v){
+PiePlot <- function(df, v, dfvartype){
   if (subset(dfvartype,var==v)$type=='cat.excl'){
     data <- ddply( df , c(v) , summarize, count = length(ModelName))
   }

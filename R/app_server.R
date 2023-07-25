@@ -60,12 +60,12 @@ app_server <- function(input, output, session) {
 
   # print Pie plot
   output$PiePlot <- renderPlot({
-    PiePlot(model_to_show(),input$var)
+    PiePlot(model_to_show(),input$var, ModelInventory::dfvartype)
   })
 
   # print Bar plot
   output$BarPlot <- renderPlot({
-    BarPlots(model_to_show(),input$var_type)
+    BarPlots(model_to_show(),input$var_type, ModelInventory::dfvartype)
   })
 
 }

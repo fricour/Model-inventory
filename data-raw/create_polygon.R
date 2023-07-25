@@ -24,21 +24,15 @@ shname_ins <- 'Institutes'  # Institutes, coordinates of headquarters, type
 
 # read data
 # institudes
-df_ins <- readxl::read_xls(fname,shname_ins)
+df_ins <- gdata::read.xls(fname,shname_ins)
 # add url for shiny popup
 df_ins$url <- paste0('<a href =', df_ins$Website, '>',df_ins$Website,'</a>')
 
 # models
-df_mod <- readxl::read_xls(fname,shname_mod)
+df_mod <- gdata::read.xls(fname,shname_mod)
 
 # survey content
-df_res <- readxl::read_xls(fname,shname_res)
-df_res <- df_res[-which(is.na(df_res$MaxLat)),]
-df_res <- df_res[-95,] # buggy one
-df_res <- df_res[-which(df_res$MaxLon == 180),]
-df_res <- df_res[-33,] # buggy one
-rownames(df_res) <- NULL
-df_res <- df_res %>% dplyr::mutate(id = dplyr::row_number())
+df_res <- gdata::read.xls(fname,shname_res, stringsAsFactors=FALSE)
 
 # Turns multiple entries columns of strings into columns of lists of strings.
 df_res$ModelCore <- strsplit(df_res$ModelCore, ', ')
@@ -48,6 +42,13 @@ df_res$AssimEOV <- strsplit(df_res$AssimEOV, ', ')
 df_res$AssimPlatform <- strsplit(df_res$AssimPlatform, ', ')
 df_res$IncreaseAccuracy <- strsplit(df_res$IncreaseAccuracy, ', ')
 df_res$ValidationPlatform <- strsplit(df_res$ValidationPlatform, ', ')
+
+df_res <- df_res[-which(is.na(df_res$MaxLat)),]
+df_res <- df_res[-95,] # buggy one
+df_res <- df_res[-which(df_res$MaxLon == 180),]
+df_res <- df_res[-33,] # buggy one
+rownames(df_res) <- NULL
+df_res <- df_res %>% dplyr::mutate(id = dplyr::row_number())
 
 # polygon creation
 # https://rstudio-pubs-static.s3.amazonaws.com/202536_7a122ff56e9f4062b6b012d9921afd80.html
