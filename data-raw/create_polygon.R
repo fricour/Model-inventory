@@ -24,15 +24,16 @@ shname_ins <- 'Institutes'  # Institutes, coordinates of headquarters, type
 
 # read data
 # institudes
-df_ins <- gdata::read.xls(fname,shname_ins)
+df_ins <- readxl::read_xls(fname,shname_ins)
 # add url for shiny popup
 df_ins$url <- paste0('<a href =', df_ins$Website, '>',df_ins$Website,'</a>')
 
 # models
-df_mod <- gdata::read.xls(fname,shname_mod)
+df_mod <- readxl::read_xls(fname,shname_mod)
 
 # survey content
-df_res <- gdata::read.xls(fname,shname_res, stringsAsFactors=FALSE)
+df_res <- readxl::read_xls(fname,shname_res)
+#df_res <- gdata::read.xls(fname,shname_res, stringsAsFactors=FALSE)
 
 # Turns multiple entries columns of strings into columns of lists of strings.
 df_res$ModelCore <- strsplit(df_res$ModelCore, ', ')
